@@ -1,0 +1,200 @@
+What to Include in the System Design Section of Your Capstone
+1. System Overview / Architecture Summary
+A high-level description of what the system does and how the components interact.
+
+Include:
+
+Purpose of the system (connect skilled workers with clients)
+
+Target users (carpenters, plumbers, hairdressers, clients in Douala)
+
+High-level architecture (client–server model, web app, database)
+
+A simple diagram helps:
+
+User Interface (web browser)
+
+Backend server (API, business logic)
+
+Database (workers, services, reviews)
+
+Optional: Notification service, authentication service
+
+⭐ 2. Functional Requirements
+These describe what the system should do.
+
+Examples for your project:
+
+User registration (workers and clients)
+
+Worker profile creation (skills, location, portfolio, pricing)
+
+Search and filtering (by skill, location, rating)
+
+Booking or contact system
+
+Review and rating system
+
+Admin dashboard (approve workers, manage content)
+
+⭐ 3. Non‑Functional Requirements
+These describe how the system should behave.
+
+Examples:
+
+Performance: Fast search results
+
+Scalability: Ability to add more cities beyond Douala
+
+Security: Password hashing, secure login
+
+Usability: Simple UI for low‑tech users
+
+Availability: System uptime expectations
+
+Localization: Support for French and English (Cameroon context)
+
+⭐ 4. System Architecture Design
+This is where you show the technical structure.
+
+Include:
+
+Architecture style:
+
+3‑tier architecture (presentation, logic, data)
+
+or MVC (Model–View–Controller)
+
+Technology stack (example):
+
+Frontend: React, Vue, or plain HTML/CSS/JS
+
+Backend: Node.js, Django, Laravel
+
+Database: MySQL, PostgreSQL, MongoDB
+
+Hosting: AWS, Azure, or local server
+
+API design (REST endpoints)
+
+/workers
+
+/services
+
+/reviews
+
+/auth/login
+
+⭐ 5. Database Design
+This is essential.
+
+Include:
+
+ER Diagram (Entity–Relationship Diagram)
+
+Tables and attributes
+
+Example tables:
+
+Workers (id, name, skill, location, phone, photo)
+
+Services (id, worker_id, description, price)
+
+Users (id, name, email, password)
+
+Reviews (id, worker_id, user_id, rating, comment)
+
+Bookings (optional)
+
+Explain relationships:
+
+One worker → many services
+
+One worker → many reviews
+
+One user → many bookings
+
+⭐ 6. User Interface (UI) / UX Design
+Show how the system will look and feel.
+
+Include:
+
+Wireframes or mockups
+
+User flow diagrams (e.g., how a client finds a carpenter)
+
+Accessibility considerations (simple UI for low‑literacy users)
+
+⭐ 7. System Workflow Diagrams
+These help explain how processes work.
+
+Useful diagrams:
+
+Use Case Diagram (workers register, clients search, admin approves)
+
+Sequence Diagram (client searches → backend → database → results)
+
+Activity Diagram (booking flow)
+
+⭐ 8. Security Design
+Important for any modern system.
+
+Include:
+
+Authentication (JWT, sessions)
+
+Password hashing
+
+Input validation
+
+Role-based access (admin vs worker vs client)
+
+Data privacy considerations
+
+⭐ 9. Deployment Design
+Explain how the system will be deployed.
+
+Include:
+
+Hosting environment
+
+CI/CD pipeline (optional)
+
+Backup strategy
+
+Domain and SSL certificate
+
+⭐ 10. Constraints and Assumptions
+This shows you understand the real-world context.
+
+Examples:
+
+Many workers may not have smartphones → system must be mobile-friendly
+
+Internet connectivity in Douala varies → lightweight pages
+
+Workers may prefer WhatsApp → integrate WhatsApp contact button
+
+⭐ 11. Future Enhancements
+Show that your system can grow.
+
+Examples:
+
+Mobile app version
+
+Payment integration (MTN Mobile Money, Orange Money)
+
+AI-based worker recommendation
+
+Expansion to other cities (Yaoundé, Buea)
+
+⭐ If you want, I can help you create:
+A full system design chapter for your paper
+
+Diagrams (ERD, use case, sequence)
+
+A complete architecture diagram
+
+A polished write‑up ready for submission
+
+Just tell me what you want to generate next.
