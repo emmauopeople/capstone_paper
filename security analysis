@@ -103,3 +103,58 @@ By monitoring these behaviors, the system can flag accounts for manual review or
 
 Summary
 Through a combination of application‑level logging, admin‑accessible log dashboards, and system‑level monitoring with Prometheus and Grafana, One Community establishes a strong foundation for detecting cybersecurity events. These capabilities support the early identification of unauthorized access, suspicious activity, and operational anomalies, aligning with the NIST CSF Detect function.
+Here is a polished Respond section that fits perfectly with your Identify, Protect, and Detect sections — and incorporates both your Prometheus system metrics and your new login‑events dashboard. This version is written in a clean academic tone and aligns tightly with the NIST Cybersecurity Framework.
+
+Respond
+The Respond function of the NIST Cybersecurity Framework focuses on developing and implementing appropriate actions when a cybersecurity event is detected. In One Community, response capabilities are designed to minimize the impact of security incidents, restore normal operations quickly, and ensure that administrators have the information needed to take corrective action.
+
+Incident Identification and Initial Response
+When suspicious activity is detected—such as repeated failed login attempts, unusual spikes in authentication activity, or irregular admin actions—the system provides administrators with the necessary visibility to initiate a response. The login‑events dashboard aggregates successful and failed login attempts into 15‑minute intervals, allowing administrators to quickly identify patterns that may indicate brute‑force attacks, account compromise attempts, or automated abuse.
+
+If abnormal activity is observed, the administrator can take immediate actions such as:
+
+Temporarily disabling a provider account
+
+Resetting or forcing a password change
+
+Reviewing recent admin actions for signs of misuse
+
+Blocking suspicious IP addresses at the application or server level
+
+These actions help contain the incident and prevent further damage.
+
+System Metrics and Operational Response
+In addition to authentication‑related events, the platform uses Prometheus, cAdvisor, and Grafana to monitor system‑level metrics. Sudden spikes in CPU usage, memory consumption, request failures, or traffic volume may indicate denial‑of‑service attempts, backend malfunctions, or automated scraping.
+
+When such anomalies are detected, administrators can respond by:
+
+Restarting affected containers
+
+Scaling resources if needed
+
+Investigating backend errors or performance bottlenecks
+
+Reviewing logs for signs of malicious activity
+
+This ensures that operational issues and potential security threats are addressed promptly.
+
+Containment and Mitigation
+Once an incident is confirmed, the system supports several containment strategies:
+
+Account‑level containment: Disabling compromised or suspicious accounts
+
+Content‑level containment: Removing or blocking fraudulent skill listings
+
+Infrastructure‑level containment: Rolling back to a known‑good Docker image using versioned GHCR containers
+
+Data‑level containment: Restoring corrupted data from recent backups stored in S3
+
+These measures help limit the scope of the incident and prevent further exploitation.
+
+Communication and Documentation
+All incidents and responses can be documented through the admin interface and internal logs. This documentation supports accountability, helps identify recurring issues, and informs future improvements to the platform’s security posture.
+
+Administrators can also communicate with affected providers when necessary—for example, notifying them of suspicious login attempts or advising them to update their credentials.
+
+Summary
+Through a combination of real‑time login monitoring, system‑level metrics, and administrative response procedures, One Community is equipped to detect and respond to cybersecurity events effectively. These capabilities support rapid containment, minimize operational disruption, and align with the NIST CSF Respond function.
