@@ -67,3 +67,39 @@ The PostgreSQL database is backed up daily, and tested restore scripts are avail
 The entire project is managed within a GitHub organization, which enforces role-based access control for contributors. The CI/CD pipeline deploys only code that has been approved by authorized users, reducing the risk of unauthorized or malicious changes entering production. 
 
  
+Detect
+The Detect function of the NIST Cybersecurity Framework focuses on developing and implementing activities that identify the occurrence of cybersecurity events. In One Community, detection capabilities are designed to reveal suspicious behavior, unauthorized access attempts, and abnormal system activity before they escalate into major incidents.
+
+Authentication and Activity Logging
+The platform records all provider login attempts and all admin actions directly into the PostgreSQL database. These logs include timestamps, user identifiers, action types, and success or failure status. This provides a reliable audit trail for monitoring authentication behavior and administrative activity.
+
+To make these logs accessible for security monitoring, an admin‑only interface is implemented. Authorized administrators can view provider login logs and admin activity logs through dedicated dashboard pages. This interface allows admins to review patterns such as repeated failed login attempts, unusual login times, or unexpected administrative actions. By centralizing log visibility, the system enables early detection of potential account compromise or misuse of administrative privileges.
+
+System and Performance Monitoring
+Beyond application‑level logs, the platform uses Prometheus, cAdvisor, and Grafana to monitor system‑level metrics. The backend exposes a /metrics endpoint that provides real‑time operational data, including request counts, error rates, and resource usage. Prometheus scrapes these metrics at regular intervals, while Grafana visualizes them through dashboards.
+
+This monitoring stack allows the system to detect anomalies such as:
+
+Sudden spikes in failed login attempts
+
+Unusual increases in error responses
+
+Abnormal CPU or memory usage in containers
+
+Irregular traffic patterns that may indicate automated attacks
+
+These indicators help identify potential security threats, performance degradation, or ongoing misuse of the platform.
+
+Detection of Irregular Provider Behavior
+Because the platform is open to the public, it is susceptible to spam, fake accounts, and abusive behavior. The logging system captures provider registration attempts, email verification failures, and repeated profile changes. Reviewing these logs helps detect patterns associated with fraudulent activity, such as:
+
+Multiple accounts created from the same IP
+
+Repeated failed email verifications
+
+Rapid creation of low‑quality or suspicious skill listings
+
+By monitoring these behaviors, the system can flag accounts for manual review or future automated controls.
+
+Summary
+Through a combination of application‑level logging, admin‑accessible log dashboards, and system‑level monitoring with Prometheus and Grafana, One Community establishes a strong foundation for detecting cybersecurity events. These capabilities support the early identification of unauthorized access, suspicious activity, and operational anomalies, aligning with the NIST CSF Detect function.
