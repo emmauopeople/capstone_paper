@@ -1,0 +1,69 @@
+Security Analysis and Mitigation for the One Community Platform 
+
+One Community is a platform designed to support individuals in developing countries such as Cameroon. A significant portion of Cameroon’s economy depends on informal skilled workers—plumbers, hairdressers, tailors, carpenters, and others. Despite the fact that over 75% of the population owns and uses smartphones daily, these workers often lack digital visibility. The One Community platform aims to bridge this gap by providing a simple way for informal workers to showcase their skills and become discoverable online. 
+
+The platform allows providers to create accounts, list their skills, and upload images of their work. For example, a carpenter can create a listing for a bed or dining set and upload three images to showcase craftsmanship. Public users can search for skills and contact providers directly through WhatsApp or email. No payments are processed through the platform at this time. Like any public-facing application, One Community is exposed to various security risks. To address these risks, this analysis applies the basic principles of the NIST Cybersecurity Framework to identify, protect, and mitigate security threats. 
+
+Key Roles in One Community 
+
+Public Users: These users search the public-facing side of the platform to find skills or services. When they find a relevant provider, they can view the provider’s contact information and location to initiate communication. 
+
+Providers: Providers register on the platform, submit their personal and skill details, manage their profiles, and send requests or messages to the admin. 
+
+Admin: The admin activates or deactivates provider accounts, edits or blocks skill listings, responds to provider requests, handles public complaints, and monitors the system for irregularities. 
+
+Key Data 
+
+According to NIST, identifying what the system contains is essential for determining how to protect it. The key components and data used by One Community include: 
+
+Assets 
+
+Application Components: React frontend, Node.js backend, PostgreSQL database, Nginx reverse proxy, Docker-based deployment, CI/CD pipeline (GitHub Actions), and container images stored in GHCR. 
+
+Data: Provider profiles (name, address, location, email, phone, skills), admin accounts, system logs, performance metrics, and backups stored in S3. 
+
+Infrastructure: S3 buckets for media uploads and backups, Prometheus and cAdvisor for monitoring, Grafana dashboards, and Certbot-generated HTTPS certificates. 
+
+Risk Identification 
+
+After identifying the platform’s assets, the next step is to identify the risks the system may face. Understanding these risks provides a foundation for selecting appropriate security controls. 
+
+Key Risks 
+
+Unauthorized Access to the Admin Dashboard: If an attacker gains access to the admin dashboard, they could modify provider profiles, deactivate legitimate providers, or block valid skill listings. This would undermine trust and damage the platform’s integrity. 
+
+Data Leakage of Provider Emails and Phone Numbers: Provider contact information is sensitive. In Cameroon, many individuals use their phone numbers to manage mobile money (MoMo) accounts. Exposure of these numbers could enable cybercriminals to attempt social engineering or financial fraud. 
+
+Spam and Abuse: Malicious users may create multiple fake accounts, upload false listings, or use invalid email addresses. This reduces platform credibility and frustrates legitimate users who cannot contact providers. 
+
+Sabotage: Because One Community offers free visibility to informal workers, larger businesses may perceive it as a competitive threat. This could motivate attempts to disrupt or discredit the platform through targeted attacks or misinformation. 
+
+Protect 
+
+Access Control and Authentication 
+
+To enforce access control within One Community, the platform defines two primary user roles: admin and provider. The admin role is further divided into a root admin, who has the authority to create and activate other admin accounts. Only authenticated users with an admin role can access the admin dashboard. 
+
+To reduce exposure and limit unauthorized access attempts, the admin dashboard is hosted on a separate URL that is not linked from the public-facing platform. While this does not replace authentication, it significantly reduces accidental or automated access attempts. 
+
+To prevent misuse of the system, providers must register using a valid, working email address. During registration, the system sends a verification code to the provider’s email, and the account is only created after the correct code is supplied. This ensures that all provider accounts are tied to real, reachable email addresses. 
+
+Authentication is implemented using sessions and tokens stored in HTTP-only cookies, which prevents client-side scripts from accessing authentication data. Passwords are securely stored using password hashing, ensuring that credentials remain protected even if the database is compromised. 
+
+Data and Application Protection 
+
+The platform protects data in transit using HTTPS, implemented through Nginx and Certbot. This ensures that all communication between users and the application is encrypted and protected from interception. 
+
+The backend uses parameterized queries to safeguard the PostgreSQL database from SQL injection attacks. Additionally, all user inputs—such as provider registration details and skill listings—are validated on the backend to ensure that only correct and safe data is stored. 
+
+A least data exposure approach is applied to public-facing features. Skill listings display only the provider’s public display name, not their full personal details. Provider locations are intentionally hidden from the public interface and are shared only when the provider chooses to disclose them during direct communication with a user. 
+
+Infrastructure and Pipeline Protection 
+
+The system uses Docker to encapsulate application code and dependencies into versioned container images stored privately in GHCR. This ensures consistent deployments and allows for rapid rollback in case of an incident. 
+
+The PostgreSQL database is backed up daily, and tested restore scripts are available to recover the system quickly if needed. In the event of an attack or system failure, the combination of the docker-compose configuration and the restore script enables the platform to be rebuilt and restored in a short period of time. 
+
+The entire project is managed within a GitHub organization, which enforces role-based access control for contributors. The CI/CD pipeline deploys only code that has been approved by authorized users, reducing the risk of unauthorized or malicious changes entering production. 
+
+ 
